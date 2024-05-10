@@ -1,30 +1,53 @@
 import pygame
+import sys
 
-
-# set up pygame modules
-
+from button import Button
+from player import Player
 pygame.init()
 
-pygame.font.init()
+screen_width = 600
+screen_height = 400
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("NameToBe!")
 
-my_font = pygame.font.SysFont('Arial', 16)
+pink = (255, 182, 193)
+white = (255, 255, 255)
 
-pygame.display.set_caption("NameToBe")
+font = pygame.font.Font('freesansbold.ttf', 32)
+
+def start_game():
+  print("Starting the game!")
+
+start_button = Button(200, 150, 200, 50, "Start Game", start_game)
+options_button = Button(200, 225, 200, 50, "Options")  
+
+player = Player(250, 200)  
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            start_button.clicked(event.pos)
+            options_button.clicked(event.pos)  
+
+   
+    screen.fill(pink)
+
+    Button.draw(start_button, screen)
+    
+
+    pygame.display.update()
+
+pygame.quit()
+sys.exit()
 
 
-# set up variables for the display
-
-size = (700, 500)
-
-screen = pygame.display.set_mode(size)
 
 
-name = "Welcome to NameToBe"
 
 
-# render the text for later
-
-display_name = my_font.render(name, True, (255, 255, 255))
 
 
 # The loop will carry on until the user exits the game (e.g. clicks the close button).
